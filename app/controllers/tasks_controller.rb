@@ -1,8 +1,15 @@
 class TasksController < ApplicationController
   # GET /tasks
-  # This action fetches and returns all tasks from the database.
+  # This action fetches tasks, optionally filtered by title, status, or priority.
   def index
     @tasks = Task.all
+
+    # Apply filters if search parameters are provided
+    @tasks = @tasks.where("title LIKE ?", "%#{params[:title]}%") if params[:title].present?
+    @tasks = @tasks.where(status: params[:status]) if params[:status].present?
+    @tasks = @tasks.where(priority: params[:priority]) if params[:priority].present?
+
+    @tasks = @tasks.page(params[:page]).per(10) # Apply pagination
     render json: @tasks
   end
 

@@ -70,4 +70,24 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
     patch task_url(task), params: { task: { priority: 'high' } }
     assert_response :success
   end  
+
+  test "should get paginated tasks" do
+    get tasks_url, params: { page: 1 }
+    assert_response :success
+  end
+
+  test "should get filtered tasks by title" do
+    get tasks_url, params: { title: 'Test' }
+    assert_response :success
+  end
+  
+  test "should get filtered tasks by status" do
+    get tasks_url, params: { status: 'to_do' }
+    assert_response :success
+  end
+  
+  test "should get filtered tasks by priority" do
+    get tasks_url, params: { priority: 'high' }
+    assert_response :success
+  end  
 end

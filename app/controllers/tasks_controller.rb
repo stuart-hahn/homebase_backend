@@ -45,8 +45,8 @@ class TasksController < ApplicationController
 
   private
 
-  # Strong parameters: allows only the title attribute to be passed in task creation and updates.
+  # Strong parameters to permit title, status, and due_date for task creation/updating
   def task_params
-    params.require(:task).permit(:title)
+    params.require(:task).permit(:title, :status, :due_date)
   end
 end

@@ -37,4 +37,26 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
     end
     assert_response :no_content
   end
+
+  test "should create task with status" do
+    post tasks_url, params: { task: { title: 'New Task', status: 'to_do' } }
+    assert_response :created
+  end
+  
+  test "should update task status" do
+    task = tasks(:one)
+    patch task_url(task), params: { task: { status: 'done' } }
+    assert_response :success
+  end  
+
+  test "should create task with due date" do
+    post tasks_url, params: { task: { title: 'New Task', status: 'to_do', due_date: '2024-12-31' } }
+    assert_response :created
+  end
+  
+  test "should update task due date" do
+    task = tasks(:one)
+    patch task_url(task), params: { task: { due_date: '2024-12-31' } }
+    assert_response :success
+  end  
 end

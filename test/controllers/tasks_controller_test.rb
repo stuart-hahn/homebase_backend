@@ -59,4 +59,15 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
     patch task_url(task), params: { task: { due_date: '2024-12-31' } }
     assert_response :success
   end  
+
+  test "should create task with priority" do
+    post tasks_url, params: { task: { title: 'New Task', status: 'to_do', priority: 'medium' } }
+    assert_response :created
+  end
+  
+  test "should update task priority" do
+    task = tasks(:one)
+    patch task_url(task), params: { task: { priority: 'high' } }
+    assert_response :success
+  end  
 end

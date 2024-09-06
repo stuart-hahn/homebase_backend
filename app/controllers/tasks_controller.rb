@@ -45,8 +45,8 @@ class TasksController < ApplicationController
 
   private
 
-  # Strong parameters to permit title, status, and due_date for task creation/updating
+  # Strong parameters to permit title, status, priority, and due_date for task creation/updating
   def task_params
-    params.require(:task).permit(:title, :status, :due_date)
+    params.require(:task).permit(:title, :status, :due_date, :priority)
   end
 end
